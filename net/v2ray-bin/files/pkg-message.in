@@ -1,0 +1,5 @@
+    Attention:
+    You should provide a valid config file at %%PREFIX%%%%ETCDIR%% before
+    start v2ray service. The sample configuration is available as following:
+        - %%PREFIX%%%%ETCDIR%%/vpoint_socks_vmess.json
+        - %%PREFIX%%%%ETCDIR%%/vpoint_vmess_freedom.json

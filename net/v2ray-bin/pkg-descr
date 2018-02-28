@@ -1,0 +1,8 @@
+V2Ray's reponsibility is tranfer data from its client to specified server,
+based on user configuration. It runs as a commandline tool. It can be
+configured via JSON based configuration.
+
+V2Ray supports Socks, HTTP, Shadowsocks and VMess protocol. All proxies can
+be send/recieve over TLS, TCL, mKCP and more transport protocols.
+
+WWW: https://github.com/v2ray/v2ray-core

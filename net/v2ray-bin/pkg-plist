@@ -1,0 +1,6 @@
+bin/v2ctl
+bin/v2ray
+etc/v2ray/geosite.dat
+etc/v2ray/geoip.dat
+etc/v2ray/vpoint_socks_vmess.json.sample
+etc/v2ray/vpoint_vmess_freedom.json.sample

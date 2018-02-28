@@ -1,0 +1,53 @@
+# $FreeBSD$
+
+# PROVIDE: v2ray
+# REQUIRE: networking
+# KEYWORD: shutdown
+
+# Note:
+# Set "v2ray_enable=yes" in either /etc/rc.conf, /etc/rc.conf.local or
+# /etc/rc.conf.d/squid to activate v2ray.
+#
+# Additional variables you can define in one of these files:
+#
+# v2ray_assets_location:  the directory v2ray believed where its
+#               assets are located Default: %%PREFIX%%/etc/v2ray
+
+. /etc/rc.subr
+
+name=v2ray
+rcvar=v2ray_enable
+pidfile=/var/run/v2ray.pid
+
+load_rc_config $name
+
+: ${v2ray_enable:=NO}
+: ${v2ray_assets_location="%%PREFIX%%/etc/v2ray"}
+
+required_files="%%PREFIX%%/etc/v2ray/config.json"
+required_args="/usr/bin/env v2ray.location.asset=%%PREFIX%%/etc/v2ray %%PREFIX%%/bin/v2ray -config=${required_files}"
+command="/usr/sbin/daemon"
+command_args="-P ${pidfile} -r -f ${required_args}"
+
+# v2ray(8) will not start if config.json is not present so try
+# to catch that beforehand via ${required_files} rather than make
+# v2ray(8) crash.
+
+extra_commands=configtest
+start_precmd=v2ray_configtest
+configtest_cmd=v2ray_configtest
+restart_precmd=v2ray_configtest
+
+
+v2ray_configtest()
+{
+        echo "Performing sanity check on ${name} configuration."
+        if $dummy_command $required_args -test; then
+                echo "Configuration for ${name} passes."
+                return 0
+        else
+                return $?
+        fi
+}
+
+run_rc_command "$1"
