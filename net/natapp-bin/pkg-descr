@@ -1,0 +1,7 @@
+A simple, high-speed and stable experience which provides intranet passthrough
+service based on Ngrok 1.7 server.
+
+One can setup http/https/tcp tunnel for the server behind NAT and access it
+transparently with server:port address provided by the application.
+
+WWW: https://natapp.cn

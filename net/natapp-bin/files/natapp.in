@@ -1,0 +1,27 @@
+# $FreeBSD$
+
+# PROVIDE: natapp
+# REQUIRE: networking
+# KEYWORD: shutdown
+
+# Note:
+# Set "natapp_enable=yes" in either /etc/rc.conf, /etc/rc.conf.local or
+# /etc/rc.conf.d/squid to activate natapp.
+
+. /etc/rc.subr
+
+name=natapp
+rcvar=natapp_enable
+pidfile=/var/run/natapp.pid
+
+load_rc_config $name
+
+: ${natapp_enable:=NO}
+
+required_files="%%PREFIX%%/etc/natapp/config.ini"
+required_args="%%PREFIX%%/bin/natapp -config ${required_files}"
+command="/usr/sbin/daemon"
+command_args="-P ${pidfile} -r -f ${required_args}"
+
+
+run_rc_command "$1"
