@@ -23,12 +23,16 @@ STRIP=
 
 # stage spec
 USE_RC_SUBR=	natapp
-SUB_FILES+=	pkg-message
+USERS=	natapp
+GROUPS=	natapp
+
+SUB_FILES+=	pkg-message pkg-install
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_PROGRAM} ${WRKSRC}/natapp ${STAGEDIR}${PREFIX}/bin
 	${MKDIR} ${STAGEDIR}${ETCDIR}
-	${CP} ${WRKSRC}/config.ini.sample ${STAGEDIR}${ETCDIR}
+	${INSTALL_DATA} ${WRKSRC}/config.ini.sample ${STAGEDIR}${ETCDIR}
+	${MKDIR} ${STAGEDIR}/var/log/natapp
 
 .include <bsd.port.mk>

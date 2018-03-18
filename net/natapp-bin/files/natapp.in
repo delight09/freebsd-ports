@@ -21,7 +21,7 @@ load_rc_config $name
 required_files="%%PREFIX%%/etc/natapp/config.ini"
 required_args="%%PREFIX%%/bin/natapp -config ${required_files}"
 command="/usr/sbin/daemon"
-command_args="-P ${pidfile} -r -f ${required_args}"
+command_args="-u natapp -P ${pidfile} -r -f ${required_args}"
 
 
 run_rc_command "$1"

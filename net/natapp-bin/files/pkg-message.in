@@ -1,4 +1,5 @@
     Attention:
+    Default log file location: /var/log/natapp/logfile
     You should create a config file: %%ETCDIR%%/config.ini before
     start the service. The sample configuration is available as following:
         - %%ETCDIR%%/config.ini.sample

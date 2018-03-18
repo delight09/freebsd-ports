@@ -1,0 +1,39 @@
+# $FreeBSD$
+
+PATH=/bin:/usr/bin:/usr/sbin
+pkgname=$1
+natapp_confdir="%%PREFIX%%/etc/natapp"
+natapp_logdir="/var/log/natapp"
+# these are hardcoded, see /usr/ports/UIDs and /usr/ports/GIDs:
+natapp_user=natapp
+natapp_group=natapp
+natapp_gid=249
+natapp_uid=249
+case $2 in
+PRE-INSTALL)
+	echo "===> Pre-installation configuration for ${pkgname}"
+	;;
+POST-INSTALL)
+	if [ ! -d ${natapp_confdir} ]; then
+		echo "Creating ${natapp_confdir}..."
+		install -d -o root -g ${natapp_group} \
+		    -m 0750 ${natapp_confdir}
+	else
+		chgrp ${natapp_group} ${natapp_confdir}
+		chmod o-rwx ${natapp_confdir}
+	fi
+	if [ ! -f ${natapp_logdir} ]; then
+		echo "Creating ${natapp_logdir}..."
+		install -d -o {natapp_user} -g ${natapp_group} \
+		    -m 0750 ${natapp_logdir}
+	else
+		chown ${natapp_user} ${natapp_logdir}
+		chgrp ${natapp_user} ${natapp_logdir}
+		chmod o-rwx ${natapp_logdir}
+	fi
+	;;
+*)
+	exit 64
+	;;
+esac
+exit 0
